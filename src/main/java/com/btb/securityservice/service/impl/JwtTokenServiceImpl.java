@@ -17,6 +17,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Override
     public String generateToken(GenerateTokenDTO generateTokenDTO) {
-        return Jwts.builder().setSubject(generateTokenDTO.getUsername()).setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, secretKey).compact();
+        return "Bearer " + Jwts.builder().setSubject(generateTokenDTO.getUsername()).setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS512, secretKey).compact();
     }
 }
