@@ -1,6 +1,7 @@
 package com.btb.securityservice.controller;
 
 import com.btb.securityservice.dto.GenerateTokenDTO;
+import com.btb.securityservice.dto.ResponseTokenDTO;
 import com.btb.securityservice.service.impl.JwtTokenServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public @ResponseBody String authenticate(@RequestBody GenerateTokenDTO generateTokenDTO) {
+    public @ResponseBody ResponseTokenDTO authenticate(@RequestBody GenerateTokenDTO generateTokenDTO) {
         log.trace("GET /auth/login email:");
 
         log.info("ImportantEvent: EventType: Code: {} Description: It has been successfully logged in");

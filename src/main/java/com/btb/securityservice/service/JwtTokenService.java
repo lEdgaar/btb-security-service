@@ -1,9 +1,10 @@
 package com.btb.securityservice.service;
 
 import com.btb.securityservice.dto.GenerateTokenDTO;
+import com.btb.securityservice.dto.ResponseTokenDTO;
 
 public interface JwtTokenService {
 
-    String generateToken(GenerateTokenDTO generateTokenDTO);
+    ResponseTokenDTO generateToken(GenerateTokenDTO generateTokenDTO);
 
 }
