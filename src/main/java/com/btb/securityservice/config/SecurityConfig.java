@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -26,10 +27,9 @@ public class SecurityConfig {
         return http.build();
     }
 
-}
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers("/monitoring", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs/**");
+    }
 
-/*.csrf(csrf -> csrf.disable())
-        //.authorizeRequests(authorizeRequests -> authorizeRequests.requestMatchers("/monitoring").permitAll())
-        .authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated())
-        .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);*/
+}

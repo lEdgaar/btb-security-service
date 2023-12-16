@@ -1,6 +1,6 @@
 package com.btb.securityservice.controller;
 
-import com.btb.securityservice.dto.GenerateTokenDTO;
+import com.btb.securityservice.dto.InfoTokenDTO;
 import com.btb.securityservice.dto.ResponseTokenDTO;
 import com.btb.securityservice.service.impl.JwtTokenServiceImpl;
 import lombok.extern.log4j.Log4j2;
@@ -20,13 +20,12 @@ public class AuthController {
         this.jwtTokenService = jwtTokenService;
     }
 
-    @PostMapping("/authenticate")
-    public @ResponseBody ResponseTokenDTO authenticate(@RequestBody GenerateTokenDTO generateTokenDTO) {
-        log.trace("GET /auth/login email:");
+    @PostMapping("/token")
+    public @ResponseBody ResponseTokenDTO authenticate(@RequestBody InfoTokenDTO infoTokenDTO) {
+        log.trace("GET /auth/token email: {}", infoTokenDTO.getEmail());
 
-        log.info("ImportantEvent: EventType: Code: {} Description: It has been successfully logged in");
-
-        return jwtTokenService.generateToken(generateTokenDTO);
+        log.info("ImportantEvent: Generate token for user: {}", infoTokenDTO.getEmail());
+        return jwtTokenService.generateToken(infoTokenDTO);
     }
 
 }

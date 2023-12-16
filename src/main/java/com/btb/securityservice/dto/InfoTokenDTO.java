@@ -10,12 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenerateTokenDTO {
+public class InfoTokenDTO {
 
     @NotNullOrEmpty
-    private String username;
-
-    @NotNullOrEmpty
-    private String role;
+    private String email;
 
 }
