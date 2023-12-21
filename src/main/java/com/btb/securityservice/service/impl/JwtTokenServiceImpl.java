@@ -1,7 +1,6 @@
 package com.btb.securityservice.service.impl;
 
 import com.btb.securityservice.dto.InfoTokenDTO;
-import com.btb.securityservice.dto.ResponseTokenDTO;
 import com.btb.securityservice.service.JwtTokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,7 +21,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private String secretKey;
 
     @Override
-    public ResponseTokenDTO generateToken(InfoTokenDTO infoTokenDTO) {
+    public String generateToken(InfoTokenDTO infoTokenDTO) {
         log.trace("Generating token for user: {}", infoTokenDTO.getEmail());
 
         Date dateExpiration = Date
@@ -40,7 +39,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 .compact();
 
         log.trace("Token generated for user: {}", infoTokenDTO.getEmail());
-        return new ResponseTokenDTO(token, dateExpiration);
+        return token;
     }
 
 }
