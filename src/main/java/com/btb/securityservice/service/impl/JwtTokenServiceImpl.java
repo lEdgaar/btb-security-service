@@ -1,7 +1,9 @@
 package com.btb.securityservice.service.impl;
 
+import com.btb.securityservice.dto.GetInfoTokenDTO;
 import com.btb.securityservice.dto.InfoTokenDTO;
 import com.btb.securityservice.service.JwtTokenService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +35,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         String token = Jwts
                 .builder()
                 .setSubject(infoTokenDTO.getEmail())
+                .claim("role", infoTokenDTO.getRole())
                 .setIssuedAt(new Date())
                 .setExpiration(dateExpiration)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
@@ -40,6 +43,20 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
         log.trace("Token generated for user: {}", infoTokenDTO.getEmail());
         return token;
+    }
+
+    @Override
+    public GetInfoTokenDTO verifyToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+
+        GetInfoTokenDTO getInfoTokenDTO = new GetInfoTokenDTO();
+        getInfoTokenDTO.setEmail(claims.getSubject());
+        getInfoTokenDTO.setRole((String) claims.get("role"));
+
+        return getInfoTokenDTO;
     }
 
 }

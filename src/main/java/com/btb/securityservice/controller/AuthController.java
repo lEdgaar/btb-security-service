@@ -1,5 +1,6 @@
 package com.btb.securityservice.controller;
 
+import com.btb.securityservice.dto.GetInfoTokenDTO;
 import com.btb.securityservice.dto.InfoTokenDTO;
 import com.btb.securityservice.service.impl.JwtTokenServiceImpl;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +26,14 @@ public class AuthController {
 
         log.info("ImportantEvent: Generate token for user: {}", infoTokenDTO.getEmail());
         return jwtTokenService.generateToken(infoTokenDTO);
+    }
+
+    @GetMapping("/verify")
+    public @ResponseBody GetInfoTokenDTO verifyToken(@RequestParam("token") String token) {
+        log.trace("GET /auth/verify");
+
+        log.info("Event: Verify token");
+        return jwtTokenService.verifyToken(token);
     }
 
 }
